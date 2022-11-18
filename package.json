@@ -2,7 +2,7 @@
   "name": "@jdmichaud/netpbm",
   "version": "0.1.1",
   "description": "A library for reading netpbm files",
-  "main": "netpbm.js",
+  "main": "dist/netpbm.js",
   "scripts": {
     "build": "rollup --config rollup.config.js",
     "lint": "eslint --config .eslintrc.js 'src/**/*.ts' --ignore-pattern 'src/**/*.spec.ts'",
