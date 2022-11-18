@@ -23,7 +23,7 @@ interface Header {
   bodyStart: number;
 }
 
-function chunks<T>(arr: Array<T>, n: number): Array<Array<T>> {;
+function chunks<T>(arr: Array<T>, n: number): Array<Array<T>> {
   const result = [];
   for (let i = 0; i < arr.length; i += n) {
     result.push(arr.slice(i, i + n));
@@ -31,11 +31,11 @@ function chunks<T>(arr: Array<T>, n: number): Array<Array<T>> {;
   return result;
 }
 
-function decodeHeader(content): Header {
+function decodeHeader(content: string): Header {
   let i = 0;
   let type;
   const size = [];
-  let depth;
+  let depth = 1;
   let complete = false;
   while (i < content.length) {
     if (type === undefined && content[i] === 'P') {
@@ -65,10 +65,10 @@ function decodeHeader(content): Header {
       break;
     }
   }
+  if (type === undefined) {
+    throw new Error('Could not find magic number');
+  }
   if (!complete) {
-    if (type === undefined) {
-      throw new Error('Could not find magic number');
-    }
     if (size.length !== 2) {
       throw new Error(`Could not find image size ${size.length}`);
     }
