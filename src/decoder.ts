@@ -35,7 +35,7 @@ function decodeHeader(content: string): Header {
   let i = 0;
   let type;
   const size = [];
-  let depth = 1;
+  let depth;
   let complete = false;
   while (i < content.length) {
     if (type === undefined && content[i] === 'P') {
@@ -77,7 +77,7 @@ function decodeHeader(content: string): Header {
     }
   }
 
-  return { type, size: [size[0], size[1]], depth, bodyStart: i };
+  return { type, size: [size[0], size[1]], depth: depth ?? 1, bodyStart: i };
 }
 
 function clearComment(content: string): string {
