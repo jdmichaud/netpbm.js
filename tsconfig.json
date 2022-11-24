@@ -4,7 +4,7 @@
     "incremental": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "target": "ES2020",
+    "target": "ES2019",
     "strict": true,
     "sourceMap": true,
     "moduleResolution": "node",
