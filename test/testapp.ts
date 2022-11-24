@@ -1,17 +1,17 @@
 import { decode } from '../src/api';
 
-function fail(msg) {
+function fail(msg: string): never {
   throw new Error(msg);
 }
 
-function equals(lhs, rhs) {
+function equals(lhs: any, rhs: any): void | never {
   if (lhs !== rhs) {
     fail(`Equality failed. Expected ${lhs} to equal ${rhs}`);
   }
   console.log(`✓ ${lhs} === ${rhs}`);
 }
 
-function deepEquals(lhs, rhs) {
+function deepEquals(lhs: any, rhs: any): void | never {
   if (JSON.stringify(lhs) !== JSON.stringify(rhs)) {
     fail(`Deep equality failed. Expected ${lhs} to equal ${rhs}`);
   }
@@ -103,15 +103,17 @@ function test() {
     file: P3c,
     expectedOutcome: {
       imageData: P3imageData,
-  },
+    },
   }];
 
-  for (let { file, expectedOutcome } of testInputs) {
+  for (const { file, expectedOutcome } of testInputs) {
     const imageData = decode(new TextEncoder().encode(file));
     equals(imageData.width, expectedOutcome.imageData.width);
     equals(imageData.height, expectedOutcome.imageData.height);
     deepEquals(Array.from(imageData.data), Array.from(expectedOutcome.imageData.data));
   }
+
+  console.log('All tests passed');
 }
 
 window.onload = test;
