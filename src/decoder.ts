@@ -108,6 +108,11 @@ function decodeAscii(content: string, header: Header): ImageData {
       ).flat());
       break;
     }
+    case MagicType.P4:
+    case MagicType.P5:
+    case MagicType.P6: {
+      throw new Error(`Unsupported type ${header.type}`);
+    }
     default: {
       throw new Error(`Unknown type ${header.type}`);
     }
@@ -126,4 +131,13 @@ export function decode(data: Uint8Array): ImageData {
 
   const body = header.type < 4 ? decodeAscii(content, header) : decodeBinary(data, header);
   return body;
+}
+
+export function fromString(content: string): ImageData {
+  const header = decodeHeader(content);
+
+  if (header.type > 3) {
+    throw new Error(`Type is ${header.type}. You can only create an image from a string with a ascii type.`);
+  }
+  return decodeAscii(content, header);
 }

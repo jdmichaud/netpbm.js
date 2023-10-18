@@ -1,1 +1,1 @@
-export { decode } from './decoder';
+export { decode, fromString } from './decoder';
